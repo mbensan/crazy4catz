@@ -1,0 +1,40 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @publication %>
+
+<div class="comentarios my-2">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h4 class="text-center">Comentarios:</h4>
+
+      <%=form_with url: "/comments/create", method: :post do |f| %>
+        <%=f.hidden_field :publication_id, value: @publication.id %>
+        <div class="m-2">
+          <%=f.text_field :content %>
+          <%=f.submit "Comenta acá"%>
+        </div>
+      <% end %>
+
+      <ul class="list-group">
+        
+        <% @publication.comments.each do |com| %>
+          <li class="list-group-item">
+            <p><%=com.content%></p>
+            <p class="text-right">
+              <small>
+                <%=com.user%>
+              </small>
+            </p>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</div>
+<div>
+  <%= link_to "Edit this publication", edit_publication_path(@publication) %> |
+  <%= link_to "Back to publications", publications_path %>
+
+  <%= button_to "Destroy this publication", @publication, method: :delete %>
+</div>
