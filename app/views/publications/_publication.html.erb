@@ -1,16 +1,30 @@
 <div id="<%= dom_id publication %>">
   <div class="p-3 publication m-2">
-    <p>
-      <strong>Title:</strong>
-      <%= publication.title %>
-    </p>
+    <div class="row">
+      <div class="col-10">
+        <p>
+          <strong>Title:</strong>
+          <%= publication.title %>
+        </p>
 
-    <p>
-      <strong>Body:</strong>
-      <%= publication.body %>
-    </p>
+        <p>
+          <strong>Body:</strong>
+          <%= publication.body %>
+        </p>
 
-    <p><small>Autor: <%=publication.user.name%></small></p>
+        <p><small>Autor: <%=publication.user.name%></small></p>
+      </div>
+      <div class="col-2">
+        <div class="text-center reaction">
+          <% if user_signed_in? %>
+            <a href="/reactions/create?rtype=like&publication_id=<%=publication.id%>">
+              <i class="bi bi-hand-thumbs-up-fill"></i>
+            </a>
+          <% end %>
+          <p>0 likes</p>
+        </div>
+      </div>
+    </div>
   </div>
 
 

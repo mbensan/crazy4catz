@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "reactions/create", as: :create_reaction
   post "comments/create"
   resources :publications
   devise_for :users

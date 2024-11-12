@@ -25,6 +25,7 @@ class PublicationsController < ApplicationController
   # POST /publications or /publications.json
   def create
     @publication = Publication.new(publication_params)
+    @publication.user = current_user
 
     respond_to do |format|
       if @publication.save
@@ -68,6 +69,6 @@ class PublicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def publication_params
-      params.require(:publication).permit(:title, :body, :user_id)
+      params.require(:publication).permit(:title, :body)
     end
 end
