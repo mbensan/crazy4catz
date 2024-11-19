@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "async/index"
   get "reactions/create", as: :create_reaction
   get "reactions/destroy", as: :destroy_reaction
   post "comments/create"

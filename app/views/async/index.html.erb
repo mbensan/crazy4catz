@@ -1,0 +1,100 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Publications" %>
+
+<h1>Publicationes Asíncronas</h1>
+
+<div id="publications">
+  
+  <div id="5">
+    <div class="p-3 publication m-2">
+      <div class="row">
+        <div class="col-10">
+          <p>
+            <strong>Title:</strong>
+            Titulo
+          </p>
+
+          <p>
+            <strong>Body:</strong>
+            Cuerpo
+          </p>
+          <p><small>Autor: Autor</small></p>
+        </div>
+        <div class="col-2">
+        
+          <div class="text-center reaction">    
+            <a href="/reactions/create?rtype=like&publication_id=4">
+              <i class="bi bi-hand-thumbs-up-fill"></i>
+            </a>
+            <a href="/reactions/destroy?rtype=like&publication_id=2">
+              <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+            </a>
+            <p>5 likes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<%= link_to "New publication", new_publication_path %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    obtener_publicaciones()
+  });
+
+  async function obtener_publicaciones() {
+    console.log('Obyteniendo publicaciones ...')
+    
+    respuesta = await fetch('/publications.json') // AJAX request
+    const datos = await respuesta.json()
+    
+    agregar_publicaciones(datos)
+  }
+
+  function agregar_publicaciones(datos) {
+    for (publicacion of datos) {
+      const div_publicacion = `
+        <div id="${publicacion.id}">
+          <div class="p-3 publication m-2">
+            <div class="row">
+              <div class="col-10">
+                <p>
+                  <strong>Title:</strong>
+                  ${publicacion.title}
+                </p>
+
+                <p>
+                  <strong>Body:</strong>
+                  ${publicacion.body}
+                </p>
+                <p><small>Autor: Autor</small></p>
+              </div>
+              <div class="col-2">
+              
+                <div class="text-center reaction">    
+                  <a href="/reactions/create?rtype=like&publication_id=4">
+                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                  </a>
+                  <a href="/reactions/destroy?rtype=like&publication_id=2">
+                    <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+                  </a>
+                  <p>5 likes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      `
+      console.log(div_publicacion)
+    }
+  }
+
+</script>
