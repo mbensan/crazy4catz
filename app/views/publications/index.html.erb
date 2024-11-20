@@ -14,3 +14,37 @@
 </div>
 
 <%= link_to "New publication", new_publication_path %>
+
+<script>
+  const csrf_token = document.querySelector('meta[name="csrf-token"]').content
+
+  async function create_reaction(rtype, publication_id) {
+
+    const respuesta = await fetch('/reactions/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrf_token
+      },
+      body: JSON.stringify({
+        rtype: rtype,
+        publication_id: publication_id
+      }),
+    })
+  }
+  
+  async function destroy_reaction(rtype, publication_id) {
+
+    const respuesta = await fetch('/reactions/destroy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrf_token
+      },
+      body: JSON.stringify({
+        rtype: rtype,
+        publication_id: publication_id
+      }),
+    })
+  }
+</script>
