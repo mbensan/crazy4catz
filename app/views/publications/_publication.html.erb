@@ -17,23 +17,28 @@
       <div class="col-2">
         <div class="text-center reaction">
           <% if user_signed_in? %>
-            <% if publication.reactions.where(rtype: "like").count == 0 %>
-              <span class="create-reaction" onclick="create_reaction('like', <%=publication.id%>)">
+            <% if publication.reactions.where(rtype: "like", user: current_user).count == 0 %>
+              <span class="reaction-btn create-reaction" onclick="create_reaction('like', <%=publication.id%>)">
                 <i class="bi bi-hand-thumbs-up-fill"></i>
               </span>
-              <span class="destroy-reaction d-none" onclick="destroy_reaction('like', <%=publication.id%>)">
+              <span class="reaction-btn destroy-reaction d-none" onclick="destroy_reaction('like', <%=publication.id%>)">
                 <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
               </span>
             <% else %>
-              <span class="create-reaction d-none" onclick="create_reaction('like', <%=publication.id%>)">
+              <span class="reaction-btn create-reaction d-none" onclick="create_reaction('like', <%=publication.id%>)">
                 <i class="bi bi-hand-thumbs-up-fill"></i>
               </span>
-              <span class="destroy-reaction" onclick="destroy_reaction('like', <%=publication.id%>)">
+              <span class="reaction-btn destroy-reaction" onclick="destroy_reaction('like', <%=publication.id%>)">
                 <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
               </span>
             <% end %>
           <% end %>
-          <p><%=publication.reactions.where(rtype: "like").count%> likes</p>
+          <p>
+            <span class="count">
+              <%=publication.reactions.where(rtype: "like").count%>
+            </span>
+            likes
+          </p>
         </div>
       </div>
     </div>

@@ -31,6 +31,16 @@
         publication_id: publication_id
       }),
     })
+
+    $(`#publication_${publication_id} .reaction span.reaction-btn`).toggleClass('d-none')
+    // ahora aumento en 1 el número de likes
+    update_num_likes(publication_id, 1)
+  }
+
+  function update_num_likes(publication_id, ammount) {
+    let num_likes = $(`#publication_${publication_id} span.count`).text()
+    num_likes = parseInt(num_likes)
+    $(`#publication_${publication_id} span.count`).text(num_likes + ammount)
   }
   
   async function destroy_reaction(rtype, publication_id) {
@@ -46,5 +56,7 @@
         publication_id: publication_id
       }),
     })
+    $(`#publication_${publication_id} .reaction span.reaction-btn`).toggleClass('d-none')
+    update_num_likes(publication_id, -1)
   }
 </script>
